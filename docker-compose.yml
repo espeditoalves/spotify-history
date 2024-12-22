@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  ambiente_spotify:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Referência ao seu Dockerfile
+    ports:
+      - "8888:8888"  # Porta para o Jupyter Notebook
+    volumes:
+      # - ./work:/home/jovyan/work  # Mapeia a pasta local 'work' para persistência
+      - .:/home/jovyan/work
+
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+
+  postgres_db:
+    image: postgres:13  # Use a versão desejada do PostgreSQL
+    ports:
+      - "5432:5432"  # Porta padrão do PostgreSQL
+    environment:
+      POSTGRES_USER: spotify  # Defina seu usuário
+      POSTGRES_PASSWORD: 123456  # Defina sua senha
+      POSTGRES_DB: db_myspotify  # Defina o nome do seu banco de dados
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Volume para persistência dos dados
+
+volumes:
+  pgdata:
