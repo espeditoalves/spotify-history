@@ -93,7 +93,10 @@ target/
 outputs
 
 # Data
+# Ignorar todos os arquivos no diretório data 
+data/
 data/**/*.csv
+data/**/*.json
 
 # Notebooks
 # notebooks/*
