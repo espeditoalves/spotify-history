@@ -9,16 +9,18 @@ sys.path.append('/home/jovyan/work')
 # Carregar variáveis de ambiente do arquivo .env
 load_dotenv(os.path.join('config', '.env'))
 
-# Configuração da conexão com o banco de dados
-db_config = {
-    'host': os.getenv('DB_HOST'),
-    'port': os.getenv('DB_PORT'),
-    'dbname': os.getenv('DB_NAME'),
-    'user': os.getenv('DB_USER'),
-    'password': os.getenv('DB_PASSWORD')
-}
+# # Configuração da conexão com o banco de dados
+# db_config = {
+#     'host': os.getenv('DB_HOST'),
+#     'port': os.getenv('DB_PORT'),
+#     'dbname': os.getenv('DB_NAME'),
+#     'user': os.getenv('DB_USER'),
+#     'password': os.getenv('DB_PASSWORD')
+# }
 
-def create_tracks_table() -> None:
+def create_tracks_table(
+        conn: psycopg2.extensions.connection
+) -> None:
     """
     Cria a tabela 'tracks' no banco de dados PostgreSQL, se ela não existir.
 
@@ -35,7 +37,7 @@ def create_tracks_table() -> None:
     Returns:
         None
     """
-    conn = psycopg2.connect(**db_config)
+    # conn = psycopg2.connect(**db_config)
     cur = conn.cursor()
     cur.execute("""
         CREATE TABLE IF NOT EXISTS tracks (
@@ -49,12 +51,15 @@ def create_tracks_table() -> None:
             album_images JSONB
         );
     """)
+    print(f'track criado com sucesso no banco: {conn.info.dbname}')
     conn.commit()
     cur.close()
     conn.close()
 
 
-def insert_track_data(dados: Dict[str, Any]) -> None:
+def insert_track_data(
+        dados: Dict[str, Any],
+        conn: psycopg2.extensions.connection) -> None:
     """
     Insere dados na tabela 'tracks' no banco de dados PostgreSQL.
 
@@ -74,7 +79,7 @@ def insert_track_data(dados: Dict[str, Any]) -> None:
     Returns:
         None
     """
-    conn = psycopg2.connect(**db_config)
+    # conn = psycopg2.connect(**db_config)
     cur = conn.cursor()
     cur.execute("""
         INSERT INTO tracks (track_URI, track_name, duration_ms, popularity, artists, main_artist, main_artist_URI, album_images)
@@ -86,20 +91,86 @@ def insert_track_data(dados: Dict[str, Any]) -> None:
     conn.commit()
     cur.close()
     conn.close()
+    
 
 
+def track_exists(
+        track_uri: str,
+        conn: psycopg2.extensions.connection) -> bool:
+    """
+    Verifica se um track_uri já foi inserido na tabela 'tracks'.
+
+    Args:
+        track_uri (str): URI da faixa a ser verificada.
+
+    Returns:
+        bool: True se o track_uri já existir na tabela, False caso contrário.
+    """
+    # conn = psycopg2.connect(**db_config)
+    cur = conn.cursor()
+
+    cur.execute("SELECT EXISTS(SELECT 1 FROM tracks WHERE track_URI = %s);", (track_uri,))
+    exists = cur.fetchone()[0]
+
+    cur.close()
+    conn.close()
+
+    return exists
+
+# # Exemplo de uso
+# track_uri = "spotify:track:6rqhFgbbKwnb9MLmUQDhG6"
+# if track_exists(track_uri):
+#     print(f"O track_uri {track_uri} já foi inserido na tabela.")
+# else:
+#     print(f"O track_uri {track_uri} ainda não foi inserido na tabela.")
 
 
-if __name__ == "__main__":
-    create_tracks_table()
-    dados = {
-        "track_URI": "spotify:teste:teste", 
-        "track_name": "Nome da Faixa", 
-        "duration_ms": 210000, 
-        "popularity": 85, 
-        "artists": [{'name': 'Artista 1', 'uri': 'spotify:artist:1'}, {'name': 'Artista 2', 'uri': 'spotify:artist:2'}], 
-        "main_artist": "Artista 1", 
-        "main_artist_URI": "spotify:artist:1",
-        "album_images": [{'url': 'image1.jpg'}, {'url': 'image2.jpg'}]
-    }
-    insert_track_data(dados)
+def get_main_artist_uri(
+        track_uri: str, 
+        conn: psycopg2.extensions.connection) -> str:
+    """
+    Recebe um track_uri e retorna o valor main_artist_uri da tabela 'tracks'.
+
+    Args:
+        track_uri (str): URI da faixa a ser verificada.
+
+    Returns:
+        str: URI do artista principal se encontrado, caso contrário retorna None.
+    """
+    # conn = psycopg2.connect(**db_config)
+    cur = conn.cursor()
+
+    cur.execute("SELECT main_artist_URI FROM tracks WHERE track_URI = %s;", (track_uri,))
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if result:
+        return result[0]
+    else:
+        return None
+
+# # Exemplo de uso
+# track_uri = "spotify:track:6rqhFgbbKwnb9MLmUQDhG6"
+# main_artist_uri = get_main_artist_uri(track_uri)
+
+# if main_artist_uri:
+#     print(f"O main_artist_uri para o track_uri {track_uri} é {main_artist_uri}.")
+# else:
+#     print(f"Não foi encontrado nenhum main_artist_uri para o track_uri {track_uri}.")
+
+
+# if __name__ == "__main__":
+#     create_tracks_table()
+#     dados = {
+#         "track_URI": "spotify:teste:teste", 
+#         "track_name": "Nome da Faixa", 
+#         "duration_ms": 210000, 
+#         "popularity": 85, 
+#         "artists": [{'name': 'Artista 1', 'uri': 'spotify:artist:1'}, {'name': 'Artista 2', 'uri': 'spotify:artist:2'}], 
+#         "main_artist": "Artista 1", 
+#         "main_artist_URI": "spotify:artist:1",
+#         "album_images": [{'url': 'image1.jpg'}, {'url': 'image2.jpg'}]
+#     }
+#     insert_track_data(dados)
