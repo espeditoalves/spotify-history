@@ -16,12 +16,11 @@ GROUP BY spotify_track_uri, master_metadata_track_name
 ORDER BY total_registros DESC;
 
 
+SELECT count(*)
+FROM db_myspotify.public.tracks; 
+
+SELECT count(DISTINCT track_uri) AS total_distinct_registros
+FROM db_myspotify.public.tracks;
 
 SELECT count(*)
-FROM tracks;
-
-SELECT count(*)
-FROM artists ;
-
-DELETE FROM public.tracks
-WHERE track_uri='spo:teste:teste';
+FROM db_myspotify.public.artists ;
