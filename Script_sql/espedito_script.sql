@@ -24,3 +24,5 @@ FROM db_myspotify.public.tracks;
 
 SELECT count(*)
 FROM db_myspotify.public.artists ;
+
+
