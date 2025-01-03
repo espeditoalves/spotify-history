@@ -2,21 +2,37 @@
 - [1. Spotify Project](#1-spotify-project)
   - [1.1. Construção do Ambiente Exploratório](#11-construção-do-ambiente-exploratório)
     - [1.1.1. Dockerfile e Docker Compose](#111-dockerfile-e-docker-compose)
-    - [Passo a Passo](#passo-a-passo)
+    - [1.1.2. Passo a Passo](#112-passo-a-passo)
   - [1.2. Configurando o Poetry](#12-configurando-o-poetry)
   - [1.3. Passo a Passo para Obter o Token do Jupyter e Usar no VSCode](#13-passo-a-passo-para-obter-o-token-do-jupyter-e-usar-no-vscode)
     - [1.3.1. Use o link e token](#131-use-o-link-e-token)
   - [1.4. Estrutura do Projeto](#14-estrutura-do-projeto)
+- [2. Entendimento da Estrutura](#2-entendimento-da-estrutura)
 
 # 1. Spotify Project
 
-TEXTO
+Para desenvolver este projeto, extraí meus dados do Spotify através do link https://www.spotify.com/br-pt/account/privacy/. Após acessar a opção "Baixe seus dados", selecionei "Histórico ampliado de streamings".
+
+O processo de solicitação dos dados pode levar até 30 dias para ser concluído, e os dados são enviados por e-mail no formato JSON (JavaScript Object Notation).
+
+Com a intenção de criar uma prática de análise de dados utilizando Banco de Dados e SQL, decidi armazenar os dados obtidos em um banco de dados do PostgreSQL.
+
+Para isso, configurei um ambiente de análise e serviço PostgreSQL utilizando um container do Docker, conforme descrito no arquivo [docker-compose.yml](../../docker-compose.yml).
+
+A inspiração inicial desse projeto veio do artigo [Análise de Dados do Spotify](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b), que oferece uma visão de analise dos dados da plataforma .
+
+
+> Referências
+
+- Fellipe Ao. (2020). Análise de Dados do Spotify. Medium. [Link](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b)
+
+
 
 ## 1.1. Construção do Ambiente Exploratório
 
 ### 1.1.1. Dockerfile e Docker Compose
 
-### Passo a Passo
+### 1.1.2. Passo a Passo
 
 1. **Iniciar o Docker Compose:** `docker-compose up`
 2. **Verificar os containers em execução:** `docker ps`
@@ -109,3 +125,7 @@ Para mais comandos acessar:
     ├── test_process.py             # test functions for process.py
     └── test_train_model.py         # test functions for train_model.py
 ```
+
+# 2. Entendimento da Estrutura
+
+Para entendimento do projeto,
