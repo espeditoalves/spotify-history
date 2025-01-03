@@ -8,6 +8,7 @@
     - [1.3.1. Use o link e token](#131-use-o-link-e-token)
   - [1.4. Estrutura do Projeto](#14-estrutura-do-projeto)
 - [2. Entendimento da Estrutura](#2-entendimento-da-estrutura)
+- [3. DASHBOARD](#3-dashboard)
 
 # 1. Spotify Project
 
@@ -128,4 +129,16 @@ Para mais comandos acessar:
 
 # 2. Entendimento da Estrutura
 
-Para entendimento do projeto,
+Para entendimento do projeto:
+
+- Foi uilizado a arquitetura do docker para construir meu ambiente exploratório
+- Fou utilizada a pasta **`src`** para salvar meus cripts utilizados nos notebooks do projeto
+- Ultilizei a pasta `notebook\0_db_tabelas` para salvar os notebooks com as funções de criar, puxar e inserir dados no banco de dados **`POSTGRESQL`**.
+- Fou utilizado a pasta `01_exploration` para salvar as principais explorações que fiz nos dados.
+- Foi utilizado a pasta `output` para salvar todas as saídas e extrações dos dados e meus arquivos de DASHBOARD do Power BI
+- Foi utilizado a pasta `Script_sql` para salvar meus scripts testes e de análise de dados desenvolvidos em SQL.
+- Na pasta `Conf` foi salvo um arquivo env, somente na minha maquina pessoal com os dados de acesso para o **spotify** e meu **PostgreSQL**.
+
+# 3. DASHBOARD
+
+- Link para acessar o Dashboard desenvolvido: [link](https://espeditoalves.github.io/Resume_website/portifolio-spotify_dashboard.html)
