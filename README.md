@@ -12,7 +12,7 @@
 
 # 1. Spotify Project
 
-Para desenvolver este projeto, extraí meus dados do Spotify através do link https://www.spotify.com/br-pt/account/privacy/. Após acessar a opção "Baixe seus dados", selecionei "Histórico ampliado de streamings".
+Este projeto tem o objetivo de realizar uma analise de dados do **SPOTIFY** utilizando ferramentas como `python`, `pyspark`, `SQL` e `PowerBI`, para desenvolver o projeto, extraí meus dados do Spotify através do link https://www.spotify.com/br-pt/account/privacy/. Após acessar a opção "Baixe seus dados", selecionei "Histórico ampliado de streamings".
 
 O processo de solicitação dos dados pode levar até 30 dias para ser concluído, e os dados são enviados por e-mail no formato JSON (JavaScript Object Notation).
 
@@ -22,12 +22,11 @@ Para isso, configurei um ambiente de análise e serviço PostgreSQL utilizando u
 
 A inspiração inicial desse projeto veio do artigo [Análise de Dados do Spotify](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b), que oferece uma visão de analise dos dados da plataforma .
 
+Escolhi utilizar meu próprios dados para interpretar mais de perto os resultados que estarei obtendo.
 
 > Referências
 
 - Fellipe Ao. (2020). Análise de Dados do Spotify. Medium. [Link](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b)
-
-
 
 ## 1.1. Construção do Ambiente Exploratório
 
@@ -131,7 +130,7 @@ Para mais comandos acessar:
 
 Para entendimento do projeto:
 
-- Foi uilizado a arquitetura do docker para construir meu ambiente exploratório
+- Foi utilizado a arquitetura do docker para construir meu ambiente exploratório
 - Fou utilizada a pasta **`src`** para salvar meus cripts utilizados nos notebooks do projeto
 - Ultilizei a pasta `notebook\0_db_tabelas` para salvar os notebooks com as funções de criar, puxar e inserir dados no banco de dados **`POSTGRESQL`**.
 - Fou utilizado a pasta `01_exploration` para salvar as principais explorações que fiz nos dados.
