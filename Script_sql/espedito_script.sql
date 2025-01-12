@@ -1,9 +1,10 @@
+-- Deu certo
 SELECT * 
-FROM all_tracks_registry
+FROM db_myspotify.public.all_tracks_registry
 ;
 
 SELECT COUNT(*) AS total_registros 
-FROM all_tracks_registry;
+FROM db_myspotify.public.all_tracks_registry;
 
 
 SELECT count(DISTINCT spotify_track_uri) AS total_distinct_registros
