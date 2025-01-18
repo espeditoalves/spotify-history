@@ -130,4 +130,4 @@ Para entendimento do projeto:
 
 # 3. DASHBOARD
 
-- Link para acessar o Dashboard desenvolvido: [link](https://espeditoalves.github.io/Resume_website/portifolio-spotify_dashboard.html)
+- Link para acessar o Dashboard desenvolvido: [link](https://app.powerbi.com/view?r=eyJrIjoiOWIyNzBhY2ItY2UwYy00NDY0LWE4MDItNGIwMGQxNGUxMWM1IiwidCI6ImFlMzhlYzZiLWY3YjEtNDJjMS1hZWM0LWEwYTNmMzgwYzRkZCJ9)
