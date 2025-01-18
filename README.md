@@ -9,14 +9,13 @@
       - [1.2.3.2. pyproject.toml já definido:](#1232-pyprojecttoml-já-definido)
     - [1.2.4. Passo a Passo para Obter o Token do Jupyter e Usar no VSCode](#124-passo-a-passo-para-obter-o-token-do-jupyter-e-usar-no-vscode)
       - [1.2.4.1. Use o link e token](#1241-use-o-link-e-token)
-  - [1.3. Estrutura do Projeto](#13-estrutura-do-projeto)
 - [2. Entendimento da Estrutura](#2-entendimento-da-estrutura)
 - [3. DASHBOARD](#3-dashboard)
 
 # 1. Spotify Project
 
 Este projeto tem o objetivo de realizar uma analise de dados do **SPOTIFY** 
-utilizando ferramentas como `python`, `pyspark`, `SQL` e `PowerBI`.
+utilizando ferramentas como `python`, `pyspark`, `SQL`, `Dbeaver` e `PowerBI`.
 
 ## 1.1. Conjunto de Dados
 
@@ -28,7 +27,7 @@ Com a intenção de criar uma prática de análise de dados utilizando Banco de 
 
 Para isso, configurei um ambiente de análise e serviço PostgreSQL utilizando um container do Docker, conforme descrito no arquivo [docker-compose.yml](../../docker-compose.yml).
 
-A inspiração inicial desse projeto veio do artigo [Análise de Dados do Spotify](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b), que oferece uma visão de analise dos dados da plataforma .
+A inspiração inicial desse projeto veio do artigo [Análise de Dados do Spotify](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b), que oferece uma visão de análise dos dados da plataforma .
 
 Escolhi utilizar meu próprios dados para interpretar mais de perto os resultados que estarei obtendo.
 
@@ -40,32 +39,41 @@ Escolhi utilizar meu próprios dados para interpretar mais de perto os resultado
 
 Para o passo a passo a seguir é necessário ter na nessa pasta os arquivos  [docker-compose.yml](docker-compose.yml) e o arquivo [customizations.sh](/scripts/customizations.sh).
 
-- `docker-compose.yml`: Baixar e gerencia os serviços e imagens
-- `customizations.sh`: Realizar as principais customizações, como por exemplo a instalação do poetry, e instalação do **driver JDBC do PostgreSQL**.
+- `docker-compose.yml`: Baixa e gerencia os serviços e imagens
+- `customizations.sh`: Realiza as principais customizações, como por exemplo a instalação do poetry, e instalação do **driver JDBC do PostgreSQL**.
   
 ### 1.2.1. Iniciando o container e customizando
 
-1. **Iniciar o Docker Compose:** `docker-compose up`
-2. **Verificar os containers em execução:** `docker ps`
-3. **Acessar o bash do container:** `docker exec -it <container_name(definido no docker-compose)> bash`
-
+1. **Iniciar o Docker Compose:** 
+    ```bash
+    docker-compose up
+    ```
+2. **Verificar os containers em execução:**
+    ```bash
+    docker ps
+    ```
+3. **Acessar o bash do container:** 
     ```bash
     # Após pegar o nome do container com docker ps
+    #`docker exec -it <container_name(definido no docker-compose)> bash`
     docker exec -it pyspark_spotify_custom bash
     ```
-4. **Instalar as customizações:** `sh customizations.sh`
+4. **Instalar as customizações:** 
+    ```bash
+    sh customizations.sh
+    ```
 5. **Definir caminho para o poetry funcionar na sessão atual:**
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-```
-Em seguida é necessário definir caminho para o poetry funcionar de forma permanente. Execute o seguinte comando no terminal do seu container para adicionar a linha `export PATH="$HOME/.local/bin:$PATH"` ao final do arquivo **`.bashrc`**:
+    ```bash
+    export PATH="$HOME/.local/bin:$PATH"
+    ```
+    Em seguida é necessário definir caminho para o poetry funcionar de forma permanente. Execute o seguinte comando no terminal do seu container para adicionar a linha `export PATH="$HOME/.local/bin:$PATH"` ao final do arquivo **`.bashrc`**:
 
-```bash
-# Definir caminho para o poetry funcionar de forma permanente:
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> /home/jovyan/.bashrc
-```
-- O `echo` escreve a linha desejada no terminal.
-- O `>>` adiciona (em vez de sobrescrever) o conteúdo ao final do arquivo.
+    ```bash
+    # Definir caminho para o poetry funcionar de forma permanente:
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> /home/jovyan/.bashrc
+    ```
+   - O `echo` escreve a linha desejada no terminal.
+   - O `>>` adiciona (em vez de sobrescrever) o conteúdo ao final do arquivo.
 
 Após adicionar a linha ao **.bashrc**, toda vez que o container for iniciado e uma sessão do Bash for aberta, a variável **PATH** será configurada automaticamente.
 
@@ -117,56 +125,6 @@ Em meus projetos geralmente já inicio com as principais  no arquivo **`pyprojec
     docker logs <container_id>
     ```
 
-## 1.3. Estrutura do Projeto
-
-```bash
-.
-├── config                      
-│   ├── main.yaml                   # Main configuration file
-│   ├── model                       # Configurations for training model
-│   │   ├── model1.yaml             # First variation of parameters to train model
-│   │   └── model2.yaml             # Second variation of parameters to train model
-│   └── process                     # Configurations for processing data
-│       ├── process1.yaml           # First variation of parameters to process data
-│       └── process2.yaml           # Second variation of parameters to process data
-├── data            
-│   ├── final                       # data after training the model
-│   ├── processed                   # data after processing
-│   └── raw                         # raw data
-├── docs                            # documentation for your project
-├── .gitignore                      # ignore files that cannot commit to Git
-├── Makefile                        # store useful commands to set up the environment
-├── models                          # store models
-├── notebooks                       # store notebooks
-│   ├── exploration
-│   │   └── .gitkeep
-│   ├── modeling
-│   │   └── .gitkeep
-│   ├── preprocessing
-│   │   └── .gitkeep
-│   └── reporting
-│       └── .gitkeep
-├── output                          # store outputs
-│   ├── figures
-│   │   └── .gitkeep
-│   ├── predictions
-│   │   └── .gitkeep
-│   └── reports
-│       └── .gitkeep
-├── .pre-commit-config.yaml         # configurations for pre-commit
-├── pyproject.toml                  # dependencies for poetry
-├── README.md                       # describe your project
-├── src                             # store source code
-│   ├── __init__.py                 # make src a Python module 
-│   ├── process.py                  # process data before training model
-│   ├── train_model.py              # train model
-│   └── utils.py                    # store helper functions
-└── tests                           # store tests
-    ├── __init__.py                 # make tests a Python module 
-    ├── test_process.py             # test functions for process.py
-    └── test_train_model.py         # test functions for train_model.py
-```
-
 # 2. Entendimento da Estrutura
 
 Para entendimento do projeto:
@@ -181,4 +139,4 @@ Para entendimento do projeto:
 
 # 3. DASHBOARD
 
-- Link para acessar o Dashboard desenvolvido: [link](https://espeditoalves.github.io/Resume_website/portifolio-spotify_dashboard.html)
+- Link para acessar o Dashboard desenvolvido: [link](https://app.powerbi.com/view?r=eyJrIjoiOWIyNzBhY2ItY2UwYy00NDY0LWE4MDItNGIwMGQxNGUxMWM1IiwidCI6ImFlMzhlYzZiLWY3YjEtNDJjMS1hZWM0LWEwYTNmMzgwYzRkZCJ9)
