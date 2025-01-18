@@ -9,7 +9,6 @@
       - [1.2.3.2. pyproject.toml já definido:](#1232-pyprojecttoml-já-definido)
     - [1.2.4. Passo a Passo para Obter o Token do Jupyter e Usar no VSCode](#124-passo-a-passo-para-obter-o-token-do-jupyter-e-usar-no-vscode)
       - [1.2.4.1. Use o link e token](#1241-use-o-link-e-token)
-  - [1.3. Estrutura do Projeto](#13-estrutura-do-projeto)
 - [2. Entendimento da Estrutura](#2-entendimento-da-estrutura)
 - [3. DASHBOARD](#3-dashboard)
 
@@ -116,56 +115,6 @@ Em meus projetos geralmente já inicio com as principais  no arquivo **`pyprojec
     docker-compose logs
     docker logs <container_id>
     ```
-
-## 1.3. Estrutura do Projeto
-
-```bash
-.
-├── config                      
-│   ├── main.yaml                   # Main configuration file
-│   ├── model                       # Configurations for training model
-│   │   ├── model1.yaml             # First variation of parameters to train model
-│   │   └── model2.yaml             # Second variation of parameters to train model
-│   └── process                     # Configurations for processing data
-│       ├── process1.yaml           # First variation of parameters to process data
-│       └── process2.yaml           # Second variation of parameters to process data
-├── data            
-│   ├── final                       # data after training the model
-│   ├── processed                   # data after processing
-│   └── raw                         # raw data
-├── docs                            # documentation for your project
-├── .gitignore                      # ignore files that cannot commit to Git
-├── Makefile                        # store useful commands to set up the environment
-├── models                          # store models
-├── notebooks                       # store notebooks
-│   ├── exploration
-│   │   └── .gitkeep
-│   ├── modeling
-│   │   └── .gitkeep
-│   ├── preprocessing
-│   │   └── .gitkeep
-│   └── reporting
-│       └── .gitkeep
-├── output                          # store outputs
-│   ├── figures
-│   │   └── .gitkeep
-│   ├── predictions
-│   │   └── .gitkeep
-│   └── reports
-│       └── .gitkeep
-├── .pre-commit-config.yaml         # configurations for pre-commit
-├── pyproject.toml                  # dependencies for poetry
-├── README.md                       # describe your project
-├── src                             # store source code
-│   ├── __init__.py                 # make src a Python module 
-│   ├── process.py                  # process data before training model
-│   ├── train_model.py              # train model
-│   └── utils.py                    # store helper functions
-└── tests                           # store tests
-    ├── __init__.py                 # make tests a Python module 
-    ├── test_process.py             # test functions for process.py
-    └── test_train_model.py         # test functions for train_model.py
-```
 
 # 2. Entendimento da Estrutura
 
