@@ -1,6 +1,6 @@
 
-- [1. Spotify Project](#1-spotify-project)
-- [2. Entendimento da Estrutura](#2-entendimento-da-estrutura)
+- [1. Projeto Spotify](#1-projeto-spotify)
+- [2. Estrutura](#2-estrutura)
   - [2.1. Conjunto de Dados](#21-conjunto-de-dados)
   - [2.2. Ambiente Exploratório com Docker Compose](#22-ambiente-exploratório-com-docker-compose)
     - [2.2.1. Iniciando o container e customizando](#221-iniciando-o-container-e-customizando)
@@ -10,42 +10,49 @@
       - [2.2.3.2. pyproject.toml já definido:](#2232-pyprojecttoml-já-definido)
     - [2.2.4. Passo a Passo para Obter o Token do Jupyter e Usar no VSCode](#224-passo-a-passo-para-obter-o-token-do-jupyter-e-usar-no-vscode)
       - [2.2.4.1. Use o link e token](#2241-use-o-link-e-token)
-- [3. DASHBOARD](#3-dashboard)
+  - [3. Dashboard](#3-dashboard)
+  - [4. Considerações Finais](#4-considerações-finais)
 
-# 1. Spotify Project
+# 1. Projeto Spotify
 
-Este projeto tem o objetivo de realizar uma analise de dados do **SPOTIFY** 
-utilizando ferramentas como `python`, `pyspark`, `SQL`, `Dbeaver` e `PowerBI`.
+Este projeto tem como objetivo realizar uma análise de dados do **Spotify**, utilizando ferramentas como `Python`, `PySpark`, `SQL`, `DBeaver` e `Power BI`.
 
-# 2. Entendimento da Estrutura
+O projeto foi desenvolvido com os meus próprios dados do Spotify. Esses dados, no formato JSON, foram manipulados e [salvos](./notebooks/00_db_tabelas/) em um banco de dados `PostgreSQL`. A partir do banco de dados, foi criado um link com o `Power BI `para o desenvolvimento de um `dashboard` para análise e visualização dos dados.
 
-Para entendimento do projeto:
+Além disso, foi estabelecida uma conexão com o banco de dados via `Pandas` e `PySpark` para o desenvolvimento de um notebook com uma [Análise Exploratória de Dados (EDA)](./notebooks/01_exploration/01_EDA_Spotify_User_1.ipynb), permitindo a visualização e exploração detalhada dos dados.
 
-- Foi utilizado a arquitetura do docker para construir meu ambiente exploratório
-- Fou utilizada a pasta **`src`** para salvar meus cripts utilizados nos notebooks do projeto
-- Ultilizei a pasta `notebook\0_db_tabelas` para salvar os notebooks com as funções de criar, puxar e inserir dados no banco de dados **`POSTGRESQL`**.
-- Fou utilizado a pasta `01_exploration` para salvar as principais explorações que fiz nos dados.
-- Foi utilizado a pasta `output` para salvar todas as saídas e extrações dos dados e meus arquivos de DASHBOARD do Power BI
-- Foi utilizado a pasta `Script_sql` para salvar meus scripts testes e de análise de dados desenvolvidos em SQL.
-- Na pasta `Conf` foi salvo um arquivo env, somente na minha maquina pessoal com os dados de acesso para o **spotify** e meu **PostgreSQL**.
+O projeto também conta com uma API do Spotify para a coleta de informações adicionais, que podem ser utilizadas para novas explorações e insights sobre meus gostos musicais.
+
+# 2. Estrutura
+
+Para melhor entendimento do projeto:
+
+- Utilizei a arquitetura do **Docker** para construir meu ambiente exploratório.
+- A pasta **`src`** foi utilizada para salvar os scripts usados nos notebooks do projeto.
+- Utilizei a pasta **`notebook\00_db_tabelas`** para armazenar os notebooks com as funções de criar, puxar e inserir dados no banco de dados **PostgreSQL**.
+- A pasta **`01_exploration`** foi usada para salvar as principais explorações realizadas nos dados.
+- A pasta **`output`** foi utilizada para salvar todas as saídas e extrações dos dados, bem como meus arquivos de **dashboard** do Power BI.
+- A pasta **`Script_sql`** foi usada para salvar meus scripts de testes e de análise de dados desenvolvidos em SQL.
+- Na pasta **`Conf`** foi salvo um arquivo **.env** (somente na minha máquina pessoal) com os dados de acesso ao **Spotify** e ao **PostgreSQL**.
+
 
 ## 2.1. Conjunto de Dados
 
-Para desenvolver o projeto, extraí meus dados do Spotify através do link https://www.spotify.com/br-pt/account/privacy/. Após acessar a opção "Baixe seus dados", selecionei "Histórico ampliado de streamings".
+Para desenvolver o projeto, extraí meus dados do Spotify através deste [link](https://www.spotify.com/br-pt/account/privacy/). Após acessar a opção **"Baixe seus dados"**, selecionei **"Histórico ampliado de streamings"**.
 
 O processo de solicitação dos dados pode levar até 30 dias para ser concluído, e os dados são enviados por e-mail no formato JSON (JavaScript Object Notation).
 
-Com a intenção de criar uma prática de análise de dados utilizando Banco de Dados e SQL, decidi armazenar os dados obtidos em um banco de dados do PostgreSQL.
+Com a intenção de criar uma prática de análise de dados utilizando banco de dados e SQL, decidi armazenar os dados obtidos em um banco de dados PostgreSQL.
 
 Para isso, configurei um ambiente de análise e serviço PostgreSQL utilizando um container do Docker, conforme descrito no arquivo [docker-compose.yml](../../docker-compose.yml).
 
-A inspiração inicial desse projeto veio do artigo [Análise de Dados do Spotify](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b), que oferece uma visão de análise dos dados da plataforma .
+A inspiração inicial desse projeto veio do artigo [Análise de Dados do Spotify](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b), que oferece uma visão de análise dos dados da plataforma.
 
-Escolhi utilizar meu próprios dados para interpretar mais de perto os resultados que estarei obtendo.
+Escolhi utilizar meus próprios dados para interpretar mais de perto os resultados que estarei obtendo.
 
 > Referências
-
-- Fellipe Ao. (2020). Análise de Dados do Spotify. Medium. [Link](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b)
+> - Fellipe Ao. (2020). Análise de Dados do Spotify. Medium. [Link](https://medium.com/@fellipe_ao/an%C3%A1lise-de-dados-do-spotify-7c106387477b)
+ 
 
 ## 2.2. Ambiente Exploratório com Docker Compose
 
@@ -139,6 +146,26 @@ Em meus projetos geralmente já inicio com as principais  no arquivo **`pyprojec
 
 
 
-# 3. DASHBOARD
+## 3. Dashboard  
 
-- Link para acessar o Dashboard desenvolvido: [link](https://app.powerbi.com/view?r=eyJrIjoiOWIyNzBhY2ItY2UwYy00NDY0LWE4MDItNGIwMGQxNGUxMWM1IiwidCI6ImFlMzhlYzZiLWY3YjEtNDJjMS1hZWM0LWEwYTNmMzgwYzRkZCJ9)
+A análise desenvolvida pode ser explorada por meio do dashboard interativo disponível no link abaixo:  
+
+🔗 [Acessar o Dashboard](https://app.powerbi.com/view?r=eyJrIjoiOWIyNzBhY2ItY2UwYy00NDY0LWE4MDItNGIwMGQxNGUxMWM1IiwidCI6ImFlMzhlYzZiLWY3YjEtNDJjMS1hZWM0LWEwYTNmMzgwYzRkZCJ9)  
+
+O dashboard foi estruturado para oferecer uma experiência intuitiva, permitindo a visualização detalhada dos principais indicadores. Ele inclui funcionalidades interativas para filtrar dados, analisar tendências e extrair insights estratégicos de forma dinâmica.  
+
+---
+
+## 4. Considerações Finais  
+
+A conclusão desta análise representa um passo significativo na exploração dos dados e na geração de insights valiosos. O objetivo foi transformar dados brutos em informações acessíveis e acionáveis.
+
+Agradeço por dedicar seu tempo para revisar este projeto. Caso tenha sugestões de melhorias, insights adicionais ou ideias para futuras análises, ficarei imensamente grato pelo seu feedback. A colaboração e o aprimoramento contínuo são essenciais para a evolução dos projetos de análise de dados.  
+
+📩 **Contato para sugestões, dúvidas ou colaborações:**  
+
+- ✉️ **E-mail:** [espeditoalves123@hotmail.com](mailto:espeditoalves123@hotmail.com)  
+- 🔗 **LinkedIn:** [Espedito Ferreira Alves](https://www.linkedin.com/in/espedito-ferreira-alves/)  
+
+
+
